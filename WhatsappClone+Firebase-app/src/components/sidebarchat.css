@@ -1,0 +1,43 @@
+.sidebarChat{
+    display: flex;
+    cursor: pointer;
+    border-bottom: 1px solid #ebebeb;
+    height: 55px;
+    background-color: #ffffff;
+    cursor: pointer;
+    
+}
+.sidebarChat:hover{
+    background-color: #ebebeb;
+}
+.sidebarChat img{
+    width:38px;
+}
+h2{
+    font-size: 10px;
+}
+
+.sidebarChatInfo{
+    margin-left: 20px;
+    margin-top: 0px;
+    padding: 0;
+}
+
+a{
+    text-decoration: none;
+    color: rgb(58, 58, 58);
+}
+.lastMessageDay{
+    margin-left: 30vh;
+    margin-top: 4px;
+    font-size: 9px;
+}
+
+.RiArrowDownSLine{
+    position: relative;
+    top: 0;
+}
+.RiArrowDownSLine:hover{
+    position: relative;   
+}
+
