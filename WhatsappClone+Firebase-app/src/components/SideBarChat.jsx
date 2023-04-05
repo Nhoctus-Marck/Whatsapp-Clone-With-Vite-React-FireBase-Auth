@@ -2,8 +2,18 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './sidebarchat.css'
 import { RiArrowDownSLine } from "react-icons/ri";
+import { useState } from 'react';
 
 export default function SideBarChat() {
+
+    const [ArrowButton_class,setArrowButton_class] = useState("hidden")
+    const updateOptionBtn = () => {
+        if(ArrowButton_class === ""){
+            setArrowButton_class("hidden")
+        }else{
+            setArrowButton_class("")
+        } 
+    }
   return (
     <Link>
         <div className='sidebarChat'>
@@ -14,7 +24,16 @@ export default function SideBarChat() {
             </div>
             <div className='lastMessageDay'>
                 <p>Today</p>
-                <button style={{ border: "none" }}><RiArrowDownSLine className='RiArrowDownSLine'/></button>
+                <button onClick={updateOptionBtn} style={{ border: "none" }}>
+                    <RiArrowDownSLine className='RiArrowDownSLine'/>
+                    <div className={`filterOptions-${ArrowButton_class}`}>
+                        <p>Archivar chat</p>
+                        <p>Silenciar notificaciones</p>
+                        <p>Eliminar chat</p>
+                        <p>Finar chat</p>
+                        <p>Marcar como no leído</p>
+                    </div>
+                </button>
             </div>
         </div>
     </Link>

@@ -54,12 +54,18 @@ outline-width: 0;
 margin-left: 10px;
 }
 
-.AiOutlineSearch{
-    
+.AiOutlineSearch-{
     width: 14px;
     padding: 5px;
     margin-left: 8px;  
     margin-top: 5px;  
+}
+.HiArrowLeft-{
+    width: 14px;
+    padding: 5px;
+    margin-left: 8px;  
+    margin-top: 5px; 
+    transition: ease-out 0.5s;
 }
 
 .BiFilter{
@@ -68,4 +74,41 @@ margin-left: 10px;
 
 .sidebarChats{
     overflow-y: scroll;
+}
+
+.AiOutlineSearch-hidden{
+    display: none;
+}
+.HiArrowLeft-hidden{
+    display: none;
+    transform: rotate(45deg) translate(0.75em, 1.25em);
+    
+}
+
+
+.filterOptions-{
+    position: absolute;
+    background-color: white;
+    border:1px solid #ffffff;
+    border-radius: 0px;
+    width: 170px;
+    top: 27vh;
+    left: 59vh;
+    z-index: 1;
+    text-align:justify;
+    box-shadow: -0px 4px 12px -4px rgba(0, 0, 0, 0.75);
+}
+.filterOptions- p{
+    margin: 10px;
+    color: #696969;
+}
+.filterOptions-hidden{
+    position: absolute;
+    background-color: white;
+    border:1px solid #696969;
+    border-radius: 8px;
+    width: 170px;
+    top: 16vh;
+    left: 58vh;
+    display: none;
 }
