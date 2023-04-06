@@ -142,8 +142,9 @@ form input{
     box-shadow: -0px 4px 12px -4px rgba(0, 0, 0, 0.75);
 }
 .ChatOptions- p{
-    margin: 10px;
+    margin: 15px;
     color: #696969;
+    font-size:small;
 }
 .ChatOptions-hidden{
     position: absolute;

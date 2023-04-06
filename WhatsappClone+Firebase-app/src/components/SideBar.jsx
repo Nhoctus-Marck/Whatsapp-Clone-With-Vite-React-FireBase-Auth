@@ -16,6 +16,7 @@ export default function SideBar({userName}) {
    
     const [search_class,setSearchClass] = useState("")
     const [Arrowleft_class,setArrowleftClass] = useState("hidden")
+    const [ArrowButton_class,setArrowButton_class] = useState("hidden")
     const updateSearchBtn = () => {
         if(search_class === ""){
             setSearchClass("hidden")
@@ -23,6 +24,13 @@ export default function SideBar({userName}) {
         }else{
             setSearchClass("")
             setArrowleftClass("hidden")
+        } 
+    }
+    const updateOptionBtn = () => {
+        if(ArrowButton_class === ""){
+            setArrowButton_class("hidden")
+        }else{
+            setArrowButton_class("")
         } 
     }
 
@@ -45,8 +53,17 @@ export default function SideBar({userName}) {
                 <button style={{ border: "none" }}>
                     <span className="material-symbols-outlined"><BsFillChatLeftTextFill className='HiOutlineUserGroup'/></span>
                 </button>
-                <button style={{ border: "none" }}>
+                <button onClick={updateOptionBtn} style={{ border: "none" }}>
                     <span className="material-symbols-outlined"><BsThreeDotsVertical className='HiOutlineUserGroup'/></span>
+                    <div className={`sidebarDotsOptions-${ArrowButton_class}`}>
+                        <p>Nuevo grupo</p>
+                        <p>Nueva comunidad</p>
+                        <p>Archivados</p>
+                        <p>Mensajes destacados</p>
+                        <p>Seleccionar chats</p>
+                        <p>Configuración</p>
+                        <p>Cerrar sesión</p>
+                    </div>
                 </button>
             </div>
         </div>
