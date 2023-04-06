@@ -6,12 +6,13 @@ import { HiMicrophone} from "react-icons/hi";
 import { FiPaperclip } from "react-icons/fi";
 import "./chat.css"
 import { useParams } from "react-router-dom";
-import { collection,doc, onSnapshot } from "firebase/firestore";
+import { addDoc, collection,doc, onSnapshot, serverTimestamp } from "firebase/firestore";
 import {db} from "../firebase"
 
 export default function Chat() {
   const {groupId} = useParams()
   const [groupName,setGroupName]= useState()
+  const[input,setInput]= useState("")
   // console.log(groupId)
 
   useEffect(()=>{
@@ -23,17 +24,32 @@ export default function Chat() {
     }
   },[groupId])
 
-  const[input,setInput] = useState("")
-
-  function sendMesagge(e){
+  const sendMessage = async (e) =>{
     e.preventDefault()
-    alert(input)
-    setInput("")
+    if(input == ""){
+      return alert("please enter your message")
+    }{
+    try {
+      const sendData = await addDoc(collection(db,"groups",groupId,"messages"),{
+        message:input,
+        name:"rahul",
+        timeStamp:serverTimestamp()
+      })
+      
+    } catch (error) {
+      console.error('error',error)
+    }
   }
-  const handdleOnChange = (e) => {
-    setInput(e.target.value)
-    console.log(input)
   }
+  // function sendMesagge(e){
+  //   e.preventDefault()
+  //   alert(input)
+  //   setInput("")
+  // }
+  // const handdleOnChange = (e) => {
+  //   setInput(e.target.value)
+  //   console.log(input)
+  // }
 
 const [ArrowButton_class,setArrowButton_class] = useState("hidden")
     const updateOptionBtn = () => {
@@ -92,10 +108,10 @@ const [ArrowButton_class,setArrowButton_class] = useState("hidden")
         <MdInsertEmoticon className='MdInsertEmoticon'/>
         <FiPaperclip className='MdInsertEmoticon'/>
         </div>
-        <form action="">
-          <input type="text" value={input} onChange={handdleOnChange} placeholder="Type a message"/>
+        <form action="" onSubmit={(e) => {sendMessage(e)}}>
+          <input type="text" value={input} onChange={(e)=>{setInput(e.target.value)}} placeholder="Type a message"/>
           <button type="submit" style={{ border: "none" }}>
-            <span className="material-symbols-outlined" type="submit" onClick={sendMesagge}></span>
+            <span className="material-symbols-outlined" type="submit" ></span>
           </button>
           <button style={{ border: "none" }}>
             <span className="material-symbols-outlined"><HiMicrophone className='HiMicrophone'/></span>
