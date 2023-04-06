@@ -5,8 +5,23 @@ import { MdInsertEmoticon } from "react-icons/md";
 import { HiMicrophone} from "react-icons/hi";
 import { FiPaperclip } from "react-icons/fi";
 import "./chat.css"
+import { useParams } from "react-router-dom";
+import { collection,doc, onSnapshot } from "firebase/firestore";
+import {db} from "../firebase"
 
 export default function Chat() {
+  const {groupId} = useParams()
+  const [groupName,setGroupName]= useState()
+  // console.log(groupId)
+
+  useEffect(()=>{
+    if(groupId){
+      const getGroup = onSnapshot(doc(db,"groups",groupId),(doc)=>{
+        // console.log(doc)
+        setGroupName(doc.data().name)
+      })
+    }
+  },[groupId])
 
   const[input,setInput] = useState("")
 
@@ -14,11 +29,11 @@ export default function Chat() {
     e.preventDefault()
     alert(input)
     setInput("")
-}
-const handdleOnChange = (e) => {
+  }
+  const handdleOnChange = (e) => {
     setInput(e.target.value)
     console.log(input)
-}
+  }
 
 const [ArrowButton_class,setArrowButton_class] = useState("hidden")
     const updateOptionBtn = () => {
@@ -35,7 +50,7 @@ const [ArrowButton_class,setArrowButton_class] = useState("hidden")
         <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" />
         <div className='chatHeaderInfo'>
           <div className='chatInfo'>
-            <p>name</p>
+            <p>{groupName}</p>
             <p>Last Seen at :</p>
           </div>
           <div className='chatHeaderRight'>

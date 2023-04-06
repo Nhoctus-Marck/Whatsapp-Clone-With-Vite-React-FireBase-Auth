@@ -31,7 +31,7 @@ export default function SideBarChat({addNewChat,name,id}) {
         } 
     }
   return !addNewChat?(
-    <Link>
+    <Link to={`group/${id}`}>
         <div className='sidebarChat'>
             <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" />
             <div className='sidebarChatInfo'>
