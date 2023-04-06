@@ -77,7 +77,8 @@ const [ArrowButton_class,setArrowButton_class] = useState("hidden")
         <div className='chatHeaderInfo'>
           <div className='chatInfo'>
             <p>{groupName}</p>
-            <p>Last Seen at :</p>
+            <p>Last Seen at : {""} {new Date(messages[messages.length - 1]?.timestamp?.toDate()).toUTCString()}
+            </p>
           </div>
           <div className='chatHeaderRight'>
             <button style={{ border: "none" }}>

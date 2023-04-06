@@ -2,11 +2,22 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './sidebarchat.css'
 import { RiArrowDownSLine } from "react-icons/ri";
-import { useState } from 'react';
-import { collection, addDoc } from "firebase/firestore";
+import { useState , useEffect } from 'react';
+import { collection, addDoc ,query,orderBy,onSnapshot} from "firebase/firestore";
 import {db} from "../firebase"
 
 export default function SideBarChat({addNewChat,name,id}) {
+    const [msg,setMsg] = useState("");
+    useEffect(()=>{
+        if(id){
+            const q = query(collection(db,"groups",id,"messages"),orderBy("timestamp","asc"))
+            const getMessage = onSnapshot(q,(snapshot)=>{
+            snapshot.docs.forEach((doc)=>{
+                setMsg(doc.data())
+            })
+        })
+        }
+    },[id])
     const createChat = async() =>{
         const group = prompt("please enter de group name")
         if(group){
@@ -36,7 +47,7 @@ export default function SideBarChat({addNewChat,name,id}) {
             <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" />
             <div className='sidebarChatInfo'>
                 <h2>{name}</h2>
-                <p>{id}</p>
+                <p>{msg.message}</p>
             </div>
             <div className='lastMessageDay'>
                 <p>Today</p>
