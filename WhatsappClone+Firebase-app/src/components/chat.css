@@ -1,0 +1,164 @@
+*{
+    margin: 0;
+}
+.chat{
+  flex:0.7;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatHeader{
+    overflow:auto;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+}
+.chatHeaderInfo{
+    flex: 1;
+    display: flex;
+    margin-left: 10px;
+    margin-top: 15px;
+    justify-content: space-between;
+}
+
+.chatInfo{
+    display: flex;
+}
+
+.chatInfo h2{
+    padding-right: 10px;
+}
+.chatInfo p{
+    padding-right: 10px;
+}
+
+
+
+.chatHeaderRight{
+    display: flex;
+    margin-top: -7px;
+    margin-left: 10px;
+}
+
+.chatBody{
+    flex: 1;
+    background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+    padding:30px;
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: none;
+    overflow-y: scroll;
+}
+.chatBody::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+  }
+.chatTime{
+    position: relative;
+    padding: 10px;
+    width: fit-content;
+    border-radius: 10px;
+    background-color: #ffffff;
+    margin-bottom: 30px;
+    left:45%;
+    font-size:11px;
+}
+
+.chatMessage{
+    position: relative;
+    padding: 10px;
+    width: fit-content;
+    border-radius: 10px;
+    background-color: #ffffff;
+    margin-bottom: 30px;
+    font-size:11px;
+}
+.chatReceiver{
+    margin-left: auto;
+    background-color: #dcf8c6;
+    width: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+    font-size:11px;
+}
+.chatName{
+    position: absolute;
+    top: -15px;
+    font-weight: 800;
+    font-size: xx-small;
+}
+
+.timestamp{
+    position: relative;
+    top:8px;
+    margin-left: 10px;
+    font-size: xx-small;
+}
+
+.chatFooter{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 10px;
+    height: 50px;
+    margin-bottom: 0px;
+    border-top: 1px solid lightgray;
+}
+
+form{
+    display: flex;
+    width: 95%;
+}
+form input{
+    width: 100%;
+    border: none;
+    outline-width: 0;
+    border-radius: 8px;
+    padding: 5px;
+    margin: 5px;
+}
+.HiMicrophone{
+    width: 20px;
+    margin-top: 8px;
+    margin-right: 3px;
+}
+.addEmoticAndDocument{
+    display: flex;
+}
+.MdInsertEmoticon{
+    width: 30px;
+}
+
+.ChatOptions-{
+    position: absolute;
+    background-color: white;
+    border:1px solid #ffffff;
+    border-radius: 0px;
+    width: 170px;
+    top: 8vh;
+    right:2vh;
+    z-index: 1;
+    text-align:justify;
+    box-shadow: -0px 4px 12px -4px rgba(0, 0, 0, 0.75);
+}
+.ChatOptions- p{
+    margin: 10px;
+    color: #696969;
+}
+.ChatOptions-hidden{
+    position: absolute;
+    background-color: white;
+    border:1px solid #696969;
+    border-radius: 8px;
+    width: 170px;
+    top: 16vh;
+    left: 58vh;
+    display: none;
+}
+
+.ChatOptions- p:hover{
+    background-color: #ebebeb;
+    width:fit-content;
+}
+
+
