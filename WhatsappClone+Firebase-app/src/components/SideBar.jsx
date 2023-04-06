@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect , useState } from 'react'
 import './sidebar.css'
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { BsFillChatLeftTextFill, BsThreeDotsVertical } from "react-icons/bs";
@@ -6,13 +6,30 @@ import { TbHistoryToggle } from "react-icons/tb";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiFilter } from "react-icons/bi";
 import SideBarChat from "./SideBarChat"
-import { useState } from 'react';
 import { HiArrowLeft } from "react-icons/hi2";
-
-
-
+import { collection, getDocs , onSnapshot} from "firebase/firestore"
+import {db} from "../firebase"
 
 export default function SideBar({userName}) {
+    const[group,setGroup]= useState([]);
+    // console.log(group)
+
+    const getGroups = async() =>{
+        const getData = onSnapshot(collection(db,"groups"),(snapshot)=>{
+            console.log(snapshot);
+            let list = [];
+            snapshot.docs.forEach((doc)=>{
+                list.push({
+                    id:doc.id,
+                    ...doc.data()
+                })
+            })
+            setGroup(list)
+        })
+    };
+    useEffect(()=>{
+        getGroups()
+    },[])
    
     const [search_class,setSearchClass] = useState("")
     const [Arrowleft_class,setArrowleftClass] = useState("hidden")
@@ -78,14 +95,11 @@ export default function SideBar({userName}) {
             <BiFilter className='BiFilter'/>
         </div>
         <div className="sidebarChats">
-            <SideBarChat className="SideBarChat"/>
-            <SideBarChat className="SideBarChat"/>
-            <SideBarChat className="SideBarChat"/>
-        {/* {group.map((group) => {
-          return <SidebarChat key={group.id} name={group.name} id={group.id} />;
-        })} */}
+            <SideBarChat className="SideBarChat" addNewChat/>
+            {group.map((group) => {
+          return <SideBarChat key={group.id} name={group.name} id={group.id} />;
+        })}
       </div>
-
     </div>
   )
 }
