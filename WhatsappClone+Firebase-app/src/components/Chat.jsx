@@ -6,13 +6,14 @@ import { HiMicrophone} from "react-icons/hi";
 import { FiPaperclip } from "react-icons/fi";
 import "./chat.css"
 import { useParams } from "react-router-dom";
-import { addDoc, collection,doc, onSnapshot, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection,doc, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
 import {db} from "../firebase"
 
 export default function Chat() {
   const {groupId} = useParams()
   const [groupName,setGroupName]= useState()
   const[input,setInput]= useState("")
+  const[messages,setMessages]= useState([])
   // console.log(groupId)
 
   useEffect(()=>{
@@ -20,6 +21,14 @@ export default function Chat() {
       const getGroup = onSnapshot(doc(db,"groups",groupId),(doc)=>{
         // console.log(doc)
         setGroupName(doc.data().name)
+      })
+      const q = query(collection(db,"groups",groupId,"messages"),orderBy("timestamp","asc"))
+      const getMessage = onSnapshot(q,(snapshot)=>{
+        let msgList = [];
+        snapshot.docs.forEach((doc)=>{
+          msgList.push({...doc.data()})
+        })
+        setMessages(msgList)
       })
     }
   },[groupId])
@@ -32,8 +41,9 @@ export default function Chat() {
     try {
       const sendData = await addDoc(collection(db,"groups",groupId,"messages"),{
         message:input,
-        name:"rahul",
-        timeStamp:serverTimestamp()
+        // name:"rahul",
+        name:"Ash",
+        timestamp:serverTimestamp()
       })
       
     } catch (error) {
@@ -91,17 +101,22 @@ const [ArrowButton_class,setArrowButton_class] = useState("hidden")
         </div>
       </div>
       <div className="chatBody">
-        <p className='chatTime'>
-            <span className=''>Today</span>
-          </p>
-          <p className='chatMessage'>
+        {messages.map((message)=>(
+          <div>
+            <p className='chatTime' style={{display:"none"}}>
+              <span className='' >Today</span>
+            </p>
+            <p className={`chatMessage ${message.name == "rahul" && "chatReceiver"}`}>
+              <span className='chatName'>{message.name}</span>
+              <span>{message.message}</span>
+              <span className='timestamp'>{new Date(message.timestamp?.toDate()).toUTCString()}</span>
+            </p>
+          </div>
+        ))}
+          {/* <p className='chatReceiver'>
             <span>message</span>
             <span className='timestamp'>time</span>
-          </p>
-          <p className='chatReceiver'>
-            <span>message</span>
-            <span className='timestamp'>time</span>
-        </p>
+          </p> */}
       </div>
       <div className="chatFooter">
         <div className='addEmoticAndDocument'>
