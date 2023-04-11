@@ -63,3 +63,16 @@ a{
     text-decoration: none;
     font-weight: bolder;
 }
+
+.LoginImg{
+    background-color: rgba(255, 255, 255, 0.534);
+    border-radius: 6px;
+    justify-content: space-around;
+    margin: 10px;
+}
+
+.LoginImg .goimg{
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    
+}

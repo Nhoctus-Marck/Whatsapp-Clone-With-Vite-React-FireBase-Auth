@@ -8,13 +8,29 @@ import "./chat.css"
 import { useParams } from "react-router-dom";
 import { addDoc, collection,doc, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
 import {db} from "../firebase"
+import { getAuth } from "firebase/auth";
 
-export default function Chat() {
+export default function Chat({userName}) {
   const {groupId} = useParams()
   const [groupName,setGroupName]= useState()
   const[input,setInput]= useState("")
   const[messages,setMessages]= useState([])
   // console.log(groupId)
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+    if (user !== null) {
+        // The user object has basic properties such as display name, email, etc.
+        const displayName = user.displayName;
+        const email = user.email;
+        const photoURL = user.photoURL;
+        const emailVerified = user.emailVerified;
+      
+        // The user's ID, unique to the Firebase project. Do NOT use
+        // this value to authenticate with your backend server, if
+        // you have one. Use User.getToken() instead.
+        const uid = user.uid;
+      }
 
   useEffect(()=>{
     if(groupId){
@@ -42,7 +58,7 @@ export default function Chat() {
       const sendData = await addDoc(collection(db,"groups",groupId,"messages"),{
         message:input,
         // name:"rahul",
-        name:"Ash",
+        name:user.displayName || userName,
         timestamp:serverTimestamp()
       })
       
@@ -107,7 +123,7 @@ const [ArrowButton_class,setArrowButton_class] = useState("hidden")
             <p className='chatTime' style={{display:"none"}}>
               <span className='' >Today</span>
             </p>
-            <p className={`chatMessage ${message.name == "rahul" && "chatReceiver"}`}>
+            <p className={`chatMessage ${message.name == (userName || user.displayName) && "chatReceiver"}`}>
               <span className='chatName'>{message.name}</span>
               <span>{message.message}</span>
               <span className='timestamp'>{new Date(message.timestamp?.toDate()).toUTCString()}</span>

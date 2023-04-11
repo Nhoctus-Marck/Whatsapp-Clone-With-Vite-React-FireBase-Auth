@@ -80,6 +80,8 @@
     padding: 10px;
     border-radius: 10px;
     font-size:11px;
+    position: relative;
+    left: 110vh;
 }
 .chatName{
     position: absolute;

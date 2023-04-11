@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {db} from "../firebase";
+import {db, provider} from "../firebase";
 import { useEffect } from "react";
 import "./login.css";
 import { auth } from "../firebase"
@@ -7,12 +7,22 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { LoginContext } from "../LoginContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { signInWithPopup } from "firebase/auth";
+import SideBar from "./SideBar";
 
 export default function Login(){
     const {setUserLogin,setUserName} = useContext(LoginContext)
     const [email,setEmail] = useState("")
-    const [password,setPassword] = useState("")
+    const [password,setPassword] = useState("")  
 
+    function signUpWithGoogle(){    
+        const promise = signInWithPopup(auth,provider).then((userCredential)=>{
+            const user = userCredential.user;
+            setUserName(email.substring(0,[4]))
+            setUserLogin(true)
+        })    
+        
+    }
     const signUp = () =>{
         const promise = signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -47,6 +57,14 @@ export default function Login(){
                 <p>Still do not have an account ?</p>
                 <span>Create an Account</span>
                 </Link>
+                <div>
+                    <p>Begin with an existing account</p>
+                    <div className="LoginImg">
+                        {<button style={{border:"none",borderRadius:"6px",cursor:"pointer"}} onClick={signUpWithGoogle}>
+                            <img  className="goimg" src="https://s.pximg.net/www/images/accounts_index/icon-google.svg?nR1kTLxK2dJqLO0A" alt="" /> 
+                        </button>}
+                    </div>
+                </div>
             </div>    
         </div>
     )

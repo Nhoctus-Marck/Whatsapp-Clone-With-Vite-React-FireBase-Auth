@@ -25,8 +25,8 @@ export default function App() {
             <div className="appBody">
               <SideBar userName={userName}/>
                 <Routes>
-                <Route path="/" element={<Chat />}></Route>
-                <Route path='/group/:groupId' element={<Chat/>}></Route>
+                <Route path="/" element={<Chat userName={userName}/>}></Route>
+                <Route path='/group/:groupId' element={<Chat userName={userName}/>}></Route>
                 </Routes>
             </div>
           )

@@ -9,10 +9,25 @@ import SideBarChat from "./SideBarChat"
 import { HiArrowLeft } from "react-icons/hi2";
 import { collection, getDocs , onSnapshot} from "firebase/firestore"
 import {db} from "../firebase"
+import { getAuth } from "firebase/auth";
 
 export default function SideBar({userName}) {
     const[group,setGroup]= useState([]);
-    // console.log(group)
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user !== null) {
+        // The user object has basic properties such as display name, email, etc.
+        const displayName = user.displayName;
+        const email = user.email;
+        const photoURL = user.photoURL;
+        const emailVerified = user.emailVerified;
+      
+        // The user's ID, unique to the Firebase project. Do NOT use
+        // this value to authenticate with your backend server, if
+        // you have one. Use User.getToken() instead.
+        const uid = user.uid;
+      }
 
     const getGroups = async() =>{
         const getData = onSnapshot(collection(db,"groups"),(snapshot)=>{
@@ -59,8 +74,8 @@ export default function SideBar({userName}) {
     <div className='sidebar'>
         <div className='sidebarHeader'>
             <div style={{display:'flex'}}>
-                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" />
-                <h1>{userName}</h1>
+                <img src={user?.photoURL || "https://cdn-icons-png.flaticon.com/512/149/149071.png" } alt="" />
+                <h1>{user?.displayName || userName}</h1>
             </div>
             <div className="sidebarHeaderRight">
                 <button style={{ border: "none" }}>
