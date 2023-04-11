@@ -3,22 +3,25 @@ import {db} from "../firebase";
 import { useEffect } from "react";
 import "./login.css";
 import { auth } from "../firebase"
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { LoginContext } from "../LoginContext";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 
 export default function Login(){
-    const {setUserLogin} = useContext(LoginContext)
+    const {setUserLogin,setUserName} = useContext(LoginContext)
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
 
     const signUp = () =>{
-        createUserWithEmailAndPassword(auth, email, password)
+        const promise = signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        setUserName(email.substring(0,[4]))
         setUserLogin(true)
-        // ...
+        // Log out
+
     })
     .catch((error) => {
         const errorCode = error.code;
@@ -39,9 +42,11 @@ export default function Login(){
                     <label htmlFor="password"></label>
                     <input onChange={(e)=>{setPassword(e.target.value)}} type="password" id="password" name="password" placeholder="Enter your password" />
                 </div>
-                <button onClick={signUp()} id="submit-btn">Sign Up</button>
-                <p>Already have an account ?</p>
-                <span>Sign In</span>
+                <button onClick={signUp} id="submit-btn">Sign Up</button>
+                <Link to={"/register"}>
+                <p>Still do not have an account ?</p>
+                <span>Create an Account</span>
+                </Link>
             </div>    
         </div>
     )

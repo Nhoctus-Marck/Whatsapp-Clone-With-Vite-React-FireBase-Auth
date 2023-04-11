@@ -27,6 +27,10 @@ export default function SideBar({userName}) {
             setGroup(list)
         })
     };
+    const Logout= ()=>{
+        localStorage.clear()
+        window.location.reload()
+    }
     useEffect(()=>{
         getGroups()
     },[])
@@ -79,7 +83,7 @@ export default function SideBar({userName}) {
                         <p>Mensajes destacados</p>
                         <p>Seleccionar chats</p>
                         <p>Configuración</p>
-                        <p>Cerrar sesión</p>
+                        <p onClick={Logout}>Cerrar sesión</p>
                     </div>
                 </button>
             </div>
